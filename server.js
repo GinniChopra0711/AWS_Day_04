@@ -9,6 +9,7 @@ const app = express()
 // 2
 const upload = multer({ dest: 'images/' })
 
+app.use(express.static("build"));
 // 3
 
 app.get('/api/images', async (req, res)=> {
