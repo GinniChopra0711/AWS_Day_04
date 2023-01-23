@@ -13,9 +13,12 @@ app.use(express.static("build"));
 // 3
 
 app.get('/api/images', async (req, res)=> {
+  console.log("getting images...")
   const result = await db.getImages()
   res.send(result)
 })
+
+
 app.post('/api/images', upload.single('image'), async (req, res) => {
   // 4
   const imageName = req.file.filename
