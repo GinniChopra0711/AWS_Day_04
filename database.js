@@ -1,5 +1,8 @@
-const mysql = require("mysql2")
-const dotenv = require("dotenv")
+// const mysql = require("mysql2")
+// const dotenv = require("dotenv")
+
+import mysql from "mysql2";
+import dotenv from "dotenv"
 
 dotenv.config()
 
@@ -22,7 +25,7 @@ async function getImages() {
   const [rows] = await pool.query(query);
   return rows
 }
-exports.getImages = getImages
+//exports.getImages = getImages
 
 async function getImage(id) {
   let query = `
@@ -35,7 +38,7 @@ async function getImage(id) {
   const result = rows[0];
   return result
 }
-exports.getImage = getImage
+//exports.getImage = getImage
 
 async function addImage(filePath, description) {
   let query = `
@@ -48,4 +51,17 @@ async function addImage(filePath, description) {
 
   return await getImage(id)
 }
-exports.addImage = addImage
+
+// delete image from the table
+async function deleteImage(filePath){
+
+  console.log("inside delete function ")
+
+  let query =`
+  DELETE FROM images WHERE file_path = ?`
+
+  const [rows] = await pool.query(query, [filePath]);
+  return rows
+}
+
+export default {addImage, getImage, getImages,deleteImage}
